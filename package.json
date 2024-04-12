@@ -2,13 +2,14 @@
   "name": "@digital-alchemy/fastify-extension",
   "repository": "https://github.com/Digital-Alchemy-TS/fastify",
   "homepage": "https://docs.digital-alchemy.app/Fastify",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "scripts": {
-    "build": "rm -rf dist/; tsc",
+    "build": "rm -rf dist/; tsc -p tsconfig.lib.json",
     "lint": "eslint src",
     "test": "./scripts/test.sh",
     "prepublishOnly": "npm run build",
     "upgrade": "ncu -u; npm i"
+
   },
   "author": {
     "url": "https://github.com/zoe-codez",

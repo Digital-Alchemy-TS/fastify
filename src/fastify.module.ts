@@ -1,6 +1,6 @@
 import { CreateLibrary, HALF, MINUTE, SECOND } from "@digital-alchemy/core";
 
-import { Auth, Bindings } from "./extensions";
+import { Auth, Bindings, Routes } from "./extensions";
 
 export const LIB_FASTIFY = CreateLibrary({
   configuration: {
@@ -57,6 +57,7 @@ export const LIB_FASTIFY = CreateLibrary({
   services: {
     auth: Auth,
     bindings: Bindings,
+    routes: Routes,
   },
 });
 

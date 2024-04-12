@@ -4,6 +4,8 @@ dictionaryDefinitions: []
 dictionaries: []
 words:
   - hass
+  - fastify
   - gotify
+  - keyfile
 ignoreWords: []
 import: []

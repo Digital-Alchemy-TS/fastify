@@ -6,7 +6,7 @@ import { Counter } from "prom-client";
 export const HTTP_REJECTED_AUTH = new Counter({
   help: "The number of authentication requests that were rejected",
   labelNames: ["auth_method"],
-  name: "zcc_server_rejected_auth_requests",
+  name: "da_fastify_rejected_auth_requests",
 });
 
 /**
@@ -15,5 +15,5 @@ export const HTTP_REJECTED_AUTH = new Counter({
 export const THROWN_ERRORS = new Counter({
   help: "The number of authentication requests that were rejected",
   labelNames: ["status_code"],
-  name: "zcc_server_thrown_errors",
+  name: "da_fastify_thrown_errors",
 });
