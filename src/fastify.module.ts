@@ -40,7 +40,7 @@ export const LIB_FASTIFY = CreateLibrary({
       type: "string",
     },
     PORT: {
-      default: 7000,
+      default: 3000,
       description: "Set to value > 0 to enable",
       type: "number",
     },
