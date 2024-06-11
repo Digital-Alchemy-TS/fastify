@@ -2,13 +2,13 @@
   "name": "@digital-alchemy/fastify-extension",
   "repository": "https://github.com/Digital-Alchemy-TS/fastify",
   "homepage": "https://docs.digital-alchemy.app/Fastify",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "scripts": {
     "build": "rm -rf dist/; tsc",
     "lint": "eslint src",
     "test": "./scripts/test.sh",
     "prepublishOnly": "npm run build",
-    "upgrade": "ncu -u; npm i"
+    "upgrade": "ncu -u -f '@digital-alchemy/*'; npm i"
 
   },
   "author": {
@@ -26,7 +26,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@digital-alchemy/core": "^0.3.11",
+    "@digital-alchemy/core": "^0.3.18",
     "@fastify/auth": "^4.6.1",
     "@fastify/basic-auth": "^5.1.1",
     "@fastify/jwt": "^8.0.0",

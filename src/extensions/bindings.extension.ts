@@ -163,6 +163,7 @@ export function Bindings({
       },
     );
   }
+
   function configure(options: FastifyHttpsOptions<Server, FastifyBaseLogger>) {
     if (httpServer) {
       throw new BootstrapException(
@@ -191,7 +192,7 @@ export function Bindings({
      *
      * Do so prior to `onPostConfig`, or an error will be thrown
      */
-    setServer: (server: ReturnType<typeof initServer>) => {
+    setServer(server: ReturnType<typeof initServer>) {
       if (httpServer) {
         throw new BootstrapException(
           context,
