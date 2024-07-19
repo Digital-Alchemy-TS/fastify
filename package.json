@@ -2,14 +2,13 @@
   "name": "@digital-alchemy/fastify-extension",
   "repository": "https://github.com/Digital-Alchemy-TS/fastify",
   "homepage": "https://docs.digital-alchemy.app/Fastify",
-  "version": "24.06.1",
+  "version": "24.7.1",
   "scripts": {
     "build": "rm -rf dist/; tsc",
     "lint": "eslint src",
     "test": "./scripts/test.sh",
     "prepublishOnly": "npm run build",
-    "upgrade": "ncu -u -f '@digital-alchemy/*'; npm i"
-
+    "upgrade": "yarn up '@digital-alchemy/*'"
   },
   "author": {
     "url": "https://github.com/zoe-codez",
@@ -26,7 +25,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@digital-alchemy/core": "^24.6.1",
     "@fastify/auth": "^4.6.1",
     "@fastify/basic-auth": "^5.1.1",
     "@fastify/jwt": "^8.0.0",
@@ -34,7 +32,11 @@
     "fastify": "^4.26.2",
     "prom-client": "^15.1.1"
   },
+  "peerDependencies": {
+    "@digital-alchemy/core": "*"
+  },
   "devDependencies": {
+    "@digital-alchemy/core": "^24.7.2",
     "@cspell/eslint-plugin": "^8.7.0",
     "@types/figlet": "^1.5.8",
     "@types/jest": "^29.5.12",
@@ -65,5 +67,6 @@
     "tsx": "^4.7.2",
     "type-fest": "^4.15.0",
     "typescript": "^5.4.5"
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }
