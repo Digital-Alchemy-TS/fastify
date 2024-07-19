@@ -17,7 +17,7 @@ export function Routes({
       throw new BootstrapException(
         context,
         "BAD_BIND_ORDER",
-        "Must call `fastify.routes prior to onBootstrap",
+        "Must call fastify.routes prior to onBootstrap",
       );
     }
     lifecycle.onBootstrap(
