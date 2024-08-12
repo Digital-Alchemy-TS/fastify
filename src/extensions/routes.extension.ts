@@ -13,15 +13,22 @@ export function Routes({
   context,
 }: TServiceParams) {
   return function (callback: RoutesCallback) {
-    if (internal.boot.completedLifecycleEvents.has("Bootstrap")) {
+    // way too late
+    if (internal.boot.completedLifecycleEvents.has("Ready")) {
       throw new BootstrapException(
         context,
         "BAD_BIND_ORDER",
-        "Must call fastify.routes prior to onBootstrap",
+        "Must call fastify.routes prior to onReady",
       );
     }
-    lifecycle.onBootstrap(
-      async () => await callback(fastify.bindings.httpServer),
-    );
+    // is a library, or app with bootLibrariesFirst: false
+    if (!internal.boot.completedLifecycleEvents.has("Bootstrap")) {
+      lifecycle.onBootstrap(
+        async () => await callback(fastify.bindings.httpServer),
+      );
+      return;
+    }
+    // is probably an app with bootLibrariesFirst: true
+    callback(fastify.bindings.httpServer);
   };
 }
