@@ -6,6 +6,7 @@ import {
 import { FastifyInstance } from "fastify";
 
 type RoutesCallback = (server: FastifyInstance) => TBlackHole;
+const EARLY = -1000;
 export function Routes({
   fastify,
   lifecycle,
@@ -13,15 +14,16 @@ export function Routes({
   context,
 }: TServiceParams) {
   return function (callback: RoutesCallback) {
-    if (internal.boot.completedLifecycleEvents.has("Bootstrap")) {
+    if (internal.boot.completedLifecycleEvents.has("Ready")) {
       throw new BootstrapException(
         context,
         "BAD_BIND_ORDER",
         "Must call fastify.routes prior to onBootstrap",
       );
     }
-    lifecycle.onBootstrap(
+    lifecycle.onReady(
       async () => await callback(fastify.bindings.httpServer),
+      EARLY,
     );
   };
 }

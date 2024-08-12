@@ -27,6 +27,8 @@ import {
   UnauthorizedError,
 } from "../helpers";
 
+const LATE = 1000;
+
 export function Bindings({
   logger,
   lifecycle,
@@ -50,7 +52,7 @@ export function Bindings({
       logger.info(options, `📡 server listen`);
       await httpServer.listen(options);
     }
-  });
+  }, LATE);
 
   lifecycle.onShutdownStart(async () => {
     logger.info(`server teardown`);
