@@ -65,10 +65,14 @@ export function Bindings({
     }
     logger.debug(`exposing {/metrics} for prometheus requests`);
     // nothing special
-    httpServer.get("/metrics", async (_, reply) => {
-      reply.header("Content-Type", register.contentType);
-      return register.metrics();
-    });
+    httpServer.get<{ Params: { test: boolean } }>(
+      "/metrics",
+      async (_, reply) => {
+        _.params.test = true;
+        reply.header("Content-Type", register.contentType);
+        return register.metrics();
+      },
+    );
   }
 
   function initServer() {
