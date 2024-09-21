@@ -29,12 +29,7 @@ import {
 
 const LATE = 1000;
 
-export function Bindings({
-  logger,
-  lifecycle,
-  config,
-  context,
-}: TServiceParams) {
+export function Bindings({ logger, lifecycle, config, context }: TServiceParams) {
   let httpServer: ReturnType<typeof initServer>;
   let extraOptions: FastifyHttpOptions<Server, FastifyBaseLogger>;
 
@@ -65,14 +60,11 @@ export function Bindings({
     }
     logger.debug(`exposing {/metrics} for prometheus requests`);
     // nothing special
-    httpServer.get<{ Params: { test: boolean } }>(
-      "/metrics",
-      async (_, reply) => {
-        _.params.test = true;
-        reply.header("Content-Type", register.contentType);
-        return register.metrics();
-      },
-    );
+    httpServer.get<{ Params: { test: boolean } }>("/metrics", async (_, reply) => {
+      _.params.test = true;
+      reply.header("Content-Type", register.contentType);
+      return register.metrics();
+    });
   }
 
   function initServer() {
@@ -111,63 +103,62 @@ export function Bindings({
 
   function errorHandler() {
     logger.debug(`adding error handler`);
-    httpServer.setErrorHandler(
-      (error: FastifyError, _: FastifyRequest, reply: FastifyReply) => {
-        let statusCode = HttpStatusCode.INTERNAL_SERVER_ERROR;
-        let message = "Internal Server Error";
-        let status_code = "INTERNAL_SERVER_ERROR";
+    httpServer.setErrorHandler((error: FastifyError, _: FastifyRequest, reply: FastifyReply) => {
+      let statusCode = HttpStatusCode.INTERNAL_SERVER_ERROR;
+      let message = "Internal Server Error";
+      let status_code = "INTERNAL_SERVER_ERROR";
 
-        if (error instanceof BadRequestError) {
-          statusCode = HttpStatusCode.BAD_REQUEST;
-          status_code = "BAD_REQUEST";
-          message = error.message;
-        } else if (error instanceof UnauthorizedError) {
-          statusCode = HttpStatusCode.UNAUTHORIZED;
-          status_code = "UNAUTHORIZED";
-          message = error.message;
-        } else if (error instanceof ForbiddenError) {
-          statusCode = HttpStatusCode.FORBIDDEN;
-          status_code = "FORBIDDEN";
-          message = error.message;
-        } else if (error instanceof NotFoundError) {
-          statusCode = HttpStatusCode.NOT_FOUND;
-          status_code = "NOT_FOUND";
-          message = error.message;
-        } else if (error instanceof MethodNotAllowedError) {
-          statusCode = HttpStatusCode.METHOD_NOT_ALLOWED;
-          status_code = "METHOD_NOT_ALLOWED";
-          message = error.message;
-        } else if (error instanceof ConflictError) {
-          statusCode = HttpStatusCode.CONFLICT;
-          status_code = "CONFLICT";
-          message = error.message;
-        } else if (error instanceof InternalServerError) {
-          statusCode = HttpStatusCode.INTERNAL_SERVER_ERROR;
-          status_code = "INTERNAL_SERVER_ERROR";
-          message = error.message;
-        } else if (error instanceof NotImplementedError) {
-          statusCode = HttpStatusCode.NOT_IMPLEMENTED;
-          status_code = "NOT_IMPLEMENTED";
-          message = error.message;
-        } else if (error instanceof BadGatewayError) {
-          statusCode = HttpStatusCode.BAD_GATEWAY;
-          status_code = "BAD_GATEWAY";
-          message = error.message;
-        } else if (error instanceof ServiceUnavailableError) {
-          statusCode = HttpStatusCode.SERVICE_UNAVAILABLE;
-          status_code = "SERVICE_UNAVAILABLE";
-          message = error.message;
-        } else if (error instanceof GatewayTimeoutError) {
-          statusCode = HttpStatusCode.GATEWAY_TIMEOUT;
-          status_code = "GATEWAY_TIMEOUT";
-          message = error.message;
-        }
+      if (error instanceof BadRequestError) {
+        statusCode = HttpStatusCode.BAD_REQUEST;
+        status_code = "BAD_REQUEST";
+        message = error.message;
+      } else if (error instanceof UnauthorizedError) {
+        statusCode = HttpStatusCode.UNAUTHORIZED;
+        status_code = "UNAUTHORIZED";
+        message = error.message;
+      } else if (error instanceof ForbiddenError) {
+        statusCode = HttpStatusCode.FORBIDDEN;
+        status_code = "FORBIDDEN";
+        message = error.message;
+      } else if (error instanceof NotFoundError) {
+        statusCode = HttpStatusCode.NOT_FOUND;
+        status_code = "NOT_FOUND";
+        message = error.message;
+      } else if (error instanceof MethodNotAllowedError) {
+        statusCode = HttpStatusCode.METHOD_NOT_ALLOWED;
+        status_code = "METHOD_NOT_ALLOWED";
+        message = error.message;
+      } else if (error instanceof ConflictError) {
+        statusCode = HttpStatusCode.CONFLICT;
+        status_code = "CONFLICT";
+        message = error.message;
+      } else if (error instanceof InternalServerError) {
+        statusCode = HttpStatusCode.INTERNAL_SERVER_ERROR;
+        // eslint-disable-next-line sonarjs/no-redundant-assignments
+        status_code = "INTERNAL_SERVER_ERROR";
+        message = error.message;
+      } else if (error instanceof NotImplementedError) {
+        statusCode = HttpStatusCode.NOT_IMPLEMENTED;
+        status_code = "NOT_IMPLEMENTED";
+        message = error.message;
+      } else if (error instanceof BadGatewayError) {
+        statusCode = HttpStatusCode.BAD_GATEWAY;
+        status_code = "BAD_GATEWAY";
+        message = error.message;
+      } else if (error instanceof ServiceUnavailableError) {
+        statusCode = HttpStatusCode.SERVICE_UNAVAILABLE;
+        status_code = "SERVICE_UNAVAILABLE";
+        message = error.message;
+      } else if (error instanceof GatewayTimeoutError) {
+        statusCode = HttpStatusCode.GATEWAY_TIMEOUT;
+        status_code = "GATEWAY_TIMEOUT";
+        message = error.message;
+      }
 
-        THROWN_ERRORS.labels({ status_code }).inc();
+      THROWN_ERRORS.labels({ status_code }).inc();
 
-        reply.status(statusCode).send({ error: message });
-      },
-    );
+      reply.status(statusCode).send({ error: message });
+    });
   }
 
   function configure(options: FastifyHttpsOptions<Server, FastifyBaseLogger>) {

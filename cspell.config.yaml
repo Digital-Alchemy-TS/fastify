@@ -6,6 +6,7 @@ words:
   - hass
   - fastify
   - gotify
+  - sonarjs
   - keyfile
 ignoreWords: []
 import: []

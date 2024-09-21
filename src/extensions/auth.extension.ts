@@ -12,9 +12,7 @@ export function Auth({ logger, lifecycle, config }: TServiceParams) {
 
   async function AdminKey(request: FastifyRequest, reply: FastifyReply) {
     if (is.empty(config.fastify.ADMIN_KEY)) {
-      logger.warn(
-        `request was configured for ADMIN_KEY auth, but no ADMIN_KEY configured`,
-      );
+      logger.warn(`request was configured for ADMIN_KEY auth, but no ADMIN_KEY configured`);
       return;
     }
     if (request.headers["x-admin-key"] === config.fastify.ADMIN_KEY) {

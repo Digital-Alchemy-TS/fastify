@@ -69,11 +69,7 @@ export class MethodNotAllowedError extends Error {
   cause: string;
   timestamp: Date;
 
-  constructor(
-    context: TContext,
-    cause: string,
-    message = "Method Not Allowed",
-  ) {
+  constructor(context: TContext, cause: string, message = "Method Not Allowed") {
     super(
       `[MethodNotAllowedError] Context: ${context}, Cause: ${cause}, Message: ${message} | Timestamp: ${new Date().toISOString()}`,
     );
@@ -105,11 +101,7 @@ export class InternalServerError extends Error {
   cause: string;
   timestamp: Date;
 
-  constructor(
-    context: TContext,
-    cause: string,
-    message = "Internal Server Error",
-  ) {
+  constructor(context: TContext, cause: string, message = "Internal Server Error") {
     super(
       `[InternalServerError] Context: ${context}, Cause: ${cause}, Message: ${message} | Timestamp: ${new Date().toISOString()}`,
     );
@@ -157,11 +149,7 @@ export class ServiceUnavailableError extends Error {
   cause: string;
   timestamp: Date;
 
-  constructor(
-    context: TContext,
-    cause: string,
-    message = "Service Unavailable",
-  ) {
+  constructor(context: TContext, cause: string, message = "Service Unavailable") {
     super(
       `[ServiceUnavailableError] Context: ${context}, Cause: ${cause}, Message: ${message} | Timestamp: ${new Date().toISOString()}`,
     );
