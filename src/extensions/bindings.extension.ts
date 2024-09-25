@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-dead-store */
 import { BootstrapException, is, TServiceParams } from "@digital-alchemy/core";
 import fastify, {
   FastifyBaseLogger,
@@ -132,15 +131,13 @@ export function Bindings({ logger, lifecycle, config, context }: TServiceParams)
         message = error.message;
       } else if (error instanceof ServiceUnavailableError) {
         statusCode = HttpStatusCode.SERVICE_UNAVAILABLE;
-        status_code = "SERVICE_UNAVAILABLE";
         message = error.message;
       } else if (error instanceof GatewayTimeoutError) {
         statusCode = HttpStatusCode.GATEWAY_TIMEOUT;
-        status_code = "GATEWAY_TIMEOUT";
         message = error.message;
       }
 
-      reply.status(statusCode).send({ error: message });
+      reply.status(statusCode).send({ error: message, status_code });
     });
   }
 
