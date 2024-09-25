@@ -22,7 +22,6 @@ import {
   NotFoundError,
   NotImplementedError,
   ServiceUnavailableError,
-  THROWN_ERRORS,
   UnauthorizedError,
 } from "../helpers";
 
@@ -139,8 +138,6 @@ export function Bindings({ logger, lifecycle, config, context }: TServiceParams)
         status_code = "GATEWAY_TIMEOUT";
         message = error.message;
       }
-
-      THROWN_ERRORS.labels({ status_code }).inc();
 
       reply.status(statusCode).send({ error: message });
     });
