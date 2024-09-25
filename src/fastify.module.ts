@@ -19,11 +19,6 @@ export const LIB_FASTIFY = CreateLibrary({
       description: "Fastify connection timeout",
       type: "number",
     },
-    EXPOSE_METRICS: {
-      default: true,
-      description: "Respond to prometheus metrics scrape requests",
-      type: "boolean",
-    },
     HEADERS_TIMEOUT: {
       default: MINUTE,
       type: "number",

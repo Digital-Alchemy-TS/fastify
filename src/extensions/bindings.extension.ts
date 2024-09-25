@@ -9,7 +9,6 @@ import fastify, {
 } from "fastify";
 import { existsSync, readFileSync } from "fs";
 import { Server, ServerOptions } from "https";
-import { register } from "prom-client";
 
 import {
   BadGatewayError,
@@ -40,7 +39,6 @@ export function Bindings({ logger, lifecycle, config, context }: TServiceParams)
 
   lifecycle.onReady(async () => {
     errorHandler();
-    registerMetrics();
     const port = config.fastify.PORT;
     if (port) {
       const options = { host: config.fastify.LISTEN_HOST, port };
@@ -53,19 +51,6 @@ export function Bindings({ logger, lifecycle, config, context }: TServiceParams)
     logger.info(`server teardown`);
     await httpServer.close();
   });
-
-  function registerMetrics() {
-    if (!config.fastify.EXPOSE_METRICS) {
-      return;
-    }
-    logger.debug(`exposing {/metrics} for prometheus requests`);
-    // nothing special
-    httpServer.get<{ Params: { test: boolean } }>("/metrics", async (_, reply) => {
-      _.params.test = true;
-      reply.header("Content-Type", register.contentType);
-      return register.metrics();
-    });
-  }
 
   function initServer() {
     let https: ServerOptions;
