@@ -1,17 +1,8 @@
-import {
-  BootstrapException,
-  TBlackHole,
-  TServiceParams,
-} from "@digital-alchemy/core";
+import { BootstrapException, TBlackHole, TServiceParams } from "@digital-alchemy/core";
 import { FastifyInstance } from "fastify";
 
 type RoutesCallback = (server: FastifyInstance) => TBlackHole;
-export function Routes({
-  fastify,
-  lifecycle,
-  internal,
-  context,
-}: TServiceParams) {
+export function Routes({ fastify, lifecycle, internal, context }: TServiceParams) {
   return function (callback: RoutesCallback) {
     // way too late
     if (internal.boot.completedLifecycleEvents.has("Ready")) {
@@ -23,9 +14,7 @@ export function Routes({
     }
     // is a library, or app with bootLibrariesFirst: false
     if (!internal.boot.completedLifecycleEvents.has("Bootstrap")) {
-      lifecycle.onBootstrap(
-        async () => await callback(fastify.bindings.httpServer),
-      );
+      lifecycle.onBootstrap(async () => await callback(fastify.bindings.httpServer));
       return;
     }
     // is probably an app with bootLibrariesFirst: true
