@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-dead-store */
 import { BootstrapException, is, TServiceParams } from "@digital-alchemy/core";
 import fastify, {
   FastifyBaseLogger,
