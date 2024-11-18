@@ -2142,19 +2142,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digital-alchemy/core@npm:^24.9.3":
-  version: 24.9.3
-  resolution: "@digital-alchemy/core@npm:24.9.3"
-  peerDependencies:
-    chalk: ^5
-    dayjs: ^1
-    dotenv: ^16
-    ini: ^4
-    js-yaml: ^4
-    minimist: ^1
-    node-cron: ^3
-    uuid: "*"
-  checksum: 10/ab795550262c8e0d47aac270a86112b4156dfe483c4b5a663766b53546d67be7008ec52300c2db88d640eb4d52185eb3084c66d0107f11fb99939446a358ae2c
+"@digital-alchemy/core@npm:^24.11.3":
+  version: 24.11.3
+  resolution: "@digital-alchemy/core@npm:24.11.3"
+  dependencies:
+    chalk: "npm:^5.3.0"
+    dayjs: "npm:^1.11.13"
+    dotenv: "npm:^16.4.5"
+    ini: "npm:^5.0.0"
+    js-yaml: "npm:^4.1.0"
+    minimist: "npm:^1.2.8"
+    node-cron: "npm:^3.0.3"
+    uuid: "npm:^11.0.3"
+  checksum: 10/c078a12e06ae8b08629b2743013e2bf031822c126611260a572cf48eb2165043057f67a17cd66c524ff90286dc47915dfaf666bbd452ed1989d758e4dde2bd61
   languageName: node
   linkType: hard
 
@@ -2163,7 +2163,7 @@ __metadata:
   resolution: "@digital-alchemy/fastify-extension@workspace:."
   dependencies:
     "@cspell/eslint-plugin": "npm:^8.14.4"
-    "@digital-alchemy/core": "npm:^24.9.3"
+    "@digital-alchemy/core": "npm:^24.11.3"
     "@eslint/compat": "npm:^1.1.1"
     "@eslint/eslintrc": "npm:^3.1.0"
     "@eslint/js": "npm:^9.11.1"
@@ -4062,6 +4062,13 @@ __metadata:
     ansi-styles: "npm:^4.1.0"
     supports-color: "npm:^7.1.0"
   checksum: 10/cb3f3e594913d63b1814d7ca7c9bafbf895f75fbf93b92991980610dfd7b48500af4e3a5d4e3a8f337990a96b168d7eb84ee55efdce965e2ee8efc20f8c8f139
+  languageName: node
+  linkType: hard
+
+"chalk@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "chalk@npm:5.3.0"
+  checksum: 10/6373caaab21bd64c405bfc4bd9672b145647fc9482657b5ea1d549b3b2765054e9d3d928870cdf764fb4aad67555f5061538ff247b8310f110c5c888d92397ea
   languageName: node
   linkType: hard
 
@@ -6181,6 +6188,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ini@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "ini@npm:5.0.0"
+  checksum: 10/76e5567b46504b2b12650878ba6277204500a6ead3fe69eef419ee570456b364b39c040ee545846053f6d8a15797a82fc6d9efe06e392b9b6093935f4a2f2c30
+  languageName: node
+  linkType: hard
+
 "internal-slot@npm:^1.0.4, internal-slot@npm:^1.0.7":
   version: 1.0.7
   resolution: "internal-slot@npm:1.0.7"
@@ -7480,7 +7494,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10/908491b6cc15a6c440ba5b22780a0ba89b9810e1aea684e253e43c4e3b8d56ec1dcdd7ea96dde119c29df59c936cde16062159eae4225c691e19c70b432b6e6f
@@ -9438,6 +9452,15 @@ __metadata:
   bin:
     uuid: dist/bin/uuid
   checksum: 10/9a5f7aa1d6f56dd1e8d5f2478f855f25c645e64e26e347a98e98d95781d5ed20062d6cca2eecb58ba7c84bc3910be95c0451ef4161906abaab44f9cb68ffbdd1
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^11.0.3":
+  version: 11.0.3
+  resolution: "uuid@npm:11.0.3"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 10/251385563195709eb0697c74a834764eef28e1656d61174e35edbd129288acb4d95a43f4ce8a77b8c2fc128e2b55924296a0945f964b05b9173469d045625ff2
   languageName: node
   linkType: hard
 
