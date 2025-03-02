@@ -22,7 +22,7 @@
     "node": ">=20"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.mjs"
   },
   "license": "MIT",
   "peerDependencies": {
