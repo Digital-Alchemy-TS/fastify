@@ -13,12 +13,6 @@ import { RequestLocals } from "./types/index.mts";
 
 export const LIB_HTTP = CreateLibrary({
   configuration: {
-    ADMIN_KEY: {
-      description: "Used as comparison value for admin auth requests",
-      required: true,
-      source: ["env"],
-      type: "string",
-    },
     ATTACH_STANDARD_MIDDLEWARE: {
       default: false,
       description: "Attach stuff like cors",
@@ -71,15 +65,6 @@ export const LIB_HTTP = CreateLibrary({
       description: "Server port to connect to",
       source: ["env"],
       type: "number",
-    },
-    SWAGGER_APP_NAME: {
-      default: "App",
-      type: "string",
-    },
-    SWAGGER_KEY: {
-      description: "Password for swagger basic auth (username not checked)",
-      required: true,
-      type: "string",
     },
   },
   name: "http",
