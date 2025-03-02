@@ -1,7 +1,6 @@
 import importPlugin from "eslint-plugin-import";
 import jsonc from "eslint-plugin-jsonc";
 import noUnsanitized from "eslint-plugin-no-unsanitized";
-import sonarjs from "eslint-plugin-sonarjs";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import sortKeysFix from "eslint-plugin-sort-keys-fix";
 import unicorn from "eslint-plugin-unicorn";
@@ -9,6 +8,7 @@ import prettier from "eslint-plugin-prettier";
 import { fixupPluginRules } from "@eslint/compat";
 import globals from "globals";
 import tsParser from "@typescript-eslint/parser";
+import sonarjs from "eslint-plugin-sonarjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -46,9 +46,11 @@ export default [
       "plugin:prettier/recommended",
       "plugin:@cspell/recommended",
     )
-    .map(config => ({ ...config, files: ["src/**/*.ts"] })),
+    .map(config => ({ ...config, files: ["src/**/*.mts", "testing/**/*.mts"] })),
+
+  // everything
   {
-    files: ["src/**/*.ts"],
+    files: ["src/**/*.mts", "testing/**/*.mts"],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 5,
@@ -60,77 +62,72 @@ export default [
     rules: {
       "prettier/prettier": "error",
       "unicorn/switch-case-braces": "off",
+      "unicorn/expiring-todo-comments": "off",
       "unicorn/prefer-module": "off",
+      "sonarjs/no-unused-expressions": "off",
       "@typescript-eslint/no-magic-numbers": "warn",
+      "sonarjs/no-empty-function": "off",
+      "unicorn/no-process-exit": "off",
       "unicorn/no-object-as-default-parameter": "off",
+      "@cspell/spellchecker": ["warn", { checkComments: false, autoFix: true }],
       "unicorn/no-null": "off",
       "unicorn/no-empty-file": "off",
+      "sonarjs/sonar-no-fallthrough": "off",
       "sonarjs/prefer-single-boolean-return": "off",
       "unicorn/no-array-callback-reference": "off",
       "sonarjs/prefer-nullish-coalescing": "off",
-      "sonarjs/hashing": "off",
-      "unicorn/no-process-exit": "off",
-      "sonarjs/function-return-type": "off",
       "unicorn/no-await-expression-member": "off",
       "sonarjs/no-invalid-await": "off",
       "sonarjs/no-nested-functions": "off",
       "unicorn/no-useless-undefined": "off",
       "@typescript-eslint/unbound-method": "error",
-      "sonarjs/sonar-no-fallthrough": "off",
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "packageDir": "./"
-        }
-      ],
+      "import/no-extraneous-dependencies": ["error", { packageDir: "./" }],
       "sonarjs/prefer-immediate-return": "off",
-      "unicorn/prevent-abbreviations": [
-        "error",
-        {
-          "replacements": {
-            "docs": false,
-            "e": false,
-            "dir": false,
-            "i": false,
-            "params": false,
-            "fn": false,
-            "props": false,
-            "ref": false,
-            "temp": false
-          }
-        }
-      ],
+      "unicorn/prevent-abbreviations": "off",
       "no-case-declarations": "off",
       "no-async-promise-executor": "off",
       "unicorn/prefer-node-protocol": "off",
       "unicorn/no-array-for-each": "off",
-      "sonarjs/no-clear-text-protocols": "off",
       "unicorn/import-style": "off",
-      "sonarjs/fixme-tag": "off",
       "sort-keys-fix/sort-keys-fix": "warn",
+      "sonarjs/fixme-tag": "off",
       "unicorn/prefer-event-target": "off",
       "simple-import-sort/imports": "warn",
       "sonarjs/no-misused-promises": "off",
       "sonarjs/no-commented-code": "off",
-      "@typescript-eslint/no-empty-object-type": "off",
       "sonarjs/todo-tag": "off",
       "simple-import-sort/exports": "warn",
-      "no-console": [
-        "error"
-      ],
+      "no-console": ["error"],
       "@typescript-eslint/no-unnecessary-type-constraint": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          "varsIgnorePattern": "_|logger"
-        }
-      ],
-      "@typescript-eslint/no-explicit-any": "error"
-    }
+      "@typescript-eslint/no-unused-vars": ["warn", { varsIgnorePattern: "_|logger" }],
+      "@typescript-eslint/no-explicit-any": "error",
+    },
+  },
+  // tests
+  {
+    files: ["testing/**/*.mts"],
+    languageOptions: {
+      globals: { ...globals.vi },
+      parser: tsParser,
+      ecmaVersion: 5,
+      sourceType: "script",
+      parserOptions: {
+        project: ["tsconfig.spec.json"],
+      },
+    },
+    rules: {
+      "@typescript-eslint/unbound-method": "off",
+      "@typescript-eslint/no-magic-numbers": "off",
+      "sonarjs/no-duplicate-string": "off",
+      "sonarjs/no-commented-code": "off",
+      "sonarjs/no-dead-store": "off",
+      "sonarjs/no-unused-collection": "warn",
+      "unicorn/consistent-function-scoping": "off",
+    },
   },
   // module definitions
   {
-    files: ["src/**/*.module.ts"],
+    files: ["src/**/*.module.mts"],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 5,
@@ -141,27 +138,6 @@ export default [
     },
     rules: {
       "@typescript-eslint/no-magic-numbers": "off",
-    },
-  },
-  {
-    files: ["src/**/*.spec.ts"],
-    languageOptions: {
-      globals: { ...globals.jest },
-      parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: "script",
-      parserOptions: {
-        project: ["tsconfig.json"],
-      },
-    },
-    rules: {
-      "@cspell/spellchecker": "off",
-      "@typescript-eslint/no-magic-numbers": "off",
-      "@typescript-eslint/unbound-method": "off",
-      "sonarjs/no-duplicate-string": "off",
-      "sonarjs/no-unused-collection": "warn",
-      "sonarjs/prefer-promise-shorthand": "off",
-      "unicorn/consistent-function-scoping": "off",
     },
   },
 ];

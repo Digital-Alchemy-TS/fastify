@@ -2,23 +2,13 @@ import { BootstrapException, TServiceParams } from "@digital-alchemy/core";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
-import fastify, {
-  FastifyBaseLogger,
-  FastifyHttpOptions,
-  FastifyHttpsOptions,
-} from "fastify";
+import fastify, { FastifyBaseLogger, FastifyHttpOptions, FastifyHttpsOptions } from "fastify";
 import { Server } from "https";
 
 import { HttpInstance } from "../types/index.mts";
 const LATE = -1000;
 
-export function Bindings({
-  logger,
-  lifecycle,
-  config,
-  context,
-  http,
-}: TServiceParams) {
+export function Bindings({ logger, lifecycle, config, context, http }: TServiceParams) {
   let httpServer: HttpInstance;
   let extraOptions: FastifyHttpOptions<Server, FastifyBaseLogger> = {};
 
@@ -68,9 +58,7 @@ export function Bindings({
     await httpServer.close();
   });
 
-  function configure(
-    options: Partial<FastifyHttpsOptions<Server, FastifyBaseLogger>>,
-  ) {
+  function configure(options: Partial<FastifyHttpsOptions<Server, FastifyBaseLogger>>) {
     if (httpServer) {
       throw new BootstrapException(
         context,

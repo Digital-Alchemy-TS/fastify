@@ -7,7 +7,7 @@ import {
   HttpHooks,
   HttpInject,
   HttpLogger,
-  HttpMiddleware
+  HttpMiddleware,
 } from "./services/index.mts";
 import { RequestLocals } from "./types/index.mts";
 
@@ -44,8 +44,7 @@ export const LIB_HTTP = CreateLibrary({
     },
     IGNORE_TRAILING_SLASH: {
       default: true,
-      description:
-        "https://fastify.dev/docs/latest/Reference/Server/#ignoretrailingslash",
+      description: "https://fastify.dev/docs/latest/Reference/Server/#ignoretrailingslash",
       source: ["env"],
       type: "boolean",
     },

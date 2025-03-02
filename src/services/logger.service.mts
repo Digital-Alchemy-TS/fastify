@@ -4,12 +4,7 @@ import { v4 } from "uuid";
 
 const NOOP = () => {};
 
-export function HttpLogger({
-  logger,
-  als,
-  http,
-  internal: { boot },
-}: TServiceParams) {
+export function HttpLogger({ logger, als, http, internal: { boot } }: TServiceParams) {
   const loggerInstance = {
     child() {
       if (boot.phase !== "running") {

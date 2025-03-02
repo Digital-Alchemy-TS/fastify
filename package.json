@@ -73,6 +73,7 @@
     "@fastify/cors": "^11.0.0",
     "@fastify/helmet": "^13.0.1",
     "@fastify/type-provider-typebox": "^5.1.0",
+    "@sinclair/typebox": "^0.34.28",
     "uuid": "^11.1.0"
   }
 }

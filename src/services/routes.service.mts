@@ -1,19 +1,10 @@
-import {
-  BootstrapException,
-  TBlackHole,
-  TServiceParams,
-} from "@digital-alchemy/core";
+import { BootstrapException, TBlackHole, TServiceParams } from "@digital-alchemy/core";
 
 import { HttpInstance } from "../types/index.mts";
 
 type RoutesCallback = (server: HttpInstance) => TBlackHole;
 
-export function FastifyRegister({
-  http,
-  lifecycle,
-  internal,
-  context,
-}: TServiceParams) {
+export function FastifyRegister({ http, lifecycle, internal, context }: TServiceParams) {
   /**
    * Route prefix should consist of 2 parts: `[prefix, group]`
    *

@@ -1,12 +1,7 @@
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import { Type as t } from "@sinclair/typebox";
-import {
-  FastifyBaseLogger,
-  FastifyInstance,
-  RouteShorthandOptions,
-} from "fastify";
+import { FastifyBaseLogger, FastifyInstance, RouteShorthandOptions } from "fastify";
 import { IncomingMessage, Server, ServerResponse } from "http";
-
 
 export interface SessionData {
   id?: string;

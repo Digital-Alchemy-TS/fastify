@@ -1,26 +1,17 @@
-import { AsyncLogData, is, TServiceParams } from "@digital-alchemy/core";
+import { TServiceParams } from "@digital-alchemy/core";
 import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { RequestLocals, ResponseHeaders } from "../types/index.mts";
 
 const REQUIRED_HEADERS = new Set<string>();
-const PRECISION = 2
-
-export function HttpHooks({
-  logger,
-  als,
-  context,
-  http,
-}: TServiceParams) {
-   function perf () {
-    const start = performance.now();
-    return function () {
-      return Number(Number(
-        performance.now() - start,
-      ).toFixed(PRECISION));
-    };
+const PRECISION = 2;
+function perf() {
+  const start = performance.now();
+  return function () {
+    return Number(Number(performance.now() - start).toFixed(PRECISION));
   };
-
+}
+export function HttpHooks({ logger, als }: TServiceParams) {
   async function gatherLocals(req: FastifyRequest): Promise<RequestLocals> {
     logger.trace({ name: gatherLocals }, "gathering data");
     const trace: Partial<Record<string, string>> = {};
@@ -43,7 +34,6 @@ export function HttpHooks({
   }
 
   async function setup(fastify: FastifyInstance) {
-
     fastify.addHook("onRoute", function onRoute(route) {
       // * during startup, identify routes
       logger.debug({ name: onRoute }, "[%s] {%s}", route.method, route.url);
